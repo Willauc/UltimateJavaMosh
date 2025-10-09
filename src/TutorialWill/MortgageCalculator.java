@@ -54,7 +54,7 @@ public class MortgageCalculator {
             double n = Math.log(payment / (payment - principal * rate)) / Math.log(1 + rate);
 
             // Conversion en années
-            double years = n / 26;
+            double years = n / weeksInYear;
 
             System.out.printf("You have approximately %.0f payments left (%.1f years).%n", n, years);
         }

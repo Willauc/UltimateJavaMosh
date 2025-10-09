@@ -7,6 +7,6 @@ import static TutorialWill.MortgageCalculator.calculateRest;
 public class Main {
     public static void main(String[] args) {
         //System.out.println("Hello world!");
-        calculateRest(303375, 3.81f);
+        calculateRest(255365, 4.79f);
     }
 }
