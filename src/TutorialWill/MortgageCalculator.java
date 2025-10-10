@@ -10,16 +10,38 @@ public class MortgageCalculator {
         final byte percent = 100;
 
         Scanner input = new Scanner(System.in);
+        float mortgage;
+        float rate;
+        int howLong;
 
         System.out.print("Enter Your Mortgage total: ");
-        Float mortgage = input.nextFloat();
+        while (true) {
+            mortgage = input.nextFloat();
+            if(mortgage >= 100_000 &&  mortgage <= 2_000_000) {
+                break;
+            }
+            System.out.print("Enter Your Mortgage total (Between 100,000$  and 2,000,000$) : ");
+        }
 
         System.out.print("Enter Your Annual interest rate: ");
-        Float rate = input.nextFloat();
+        while (true) {
+            rate = input.nextFloat();
+            if(rate > 0 &&  rate <= 10) {
+                break;
+            }
+            System.out.print("Enter Your Annual interest rate (Between 0%  and 10%) : ");
+        }
         rate = rate / percent / weeksInYear;
 
-        System.out.print("How long do you plant to pay: ");
-        int howLong = input.nextInt();
+        System.out.print("How long do you plant to pay : ");
+        while (true) {
+            howLong = input.nextInt();
+            if(howLong >= 5 &&  howLong <= 30) {
+                break;
+            }
+            System.out.print("How long do you plant to pay (Between 5y  and 30y) : ");
+        }
+
         howLong = howLong * weeksInYear;
 
         Double payment = mortgage * ((rate * Math.pow((1 + rate), howLong)) /
@@ -31,19 +53,17 @@ public class MortgageCalculator {
     }
 
     public static void calculateRest(final double principal, float annualRate) {
-        final byte weeksInYear = 26;
+        final byte paimentInYear = 26;
         final byte percent = 100;
         Scanner input = new Scanner(System.in);
 
-        // Taux par période (26 paiements par an)
-        double rate = annualRate / percent / weeksInYear;
+        double rate = annualRate / percent / paimentInYear;
 
         while (true) {
             System.out.print("Enter your biweekly payment amount: ");
             double payment = input.nextDouble();
 
 
-            // Vérification pour éviter division par zéro
             if (payment <= principal * rate) {
                 System.out.println("Error: payment too small to cover interest.");
                 return;
@@ -53,8 +73,7 @@ public class MortgageCalculator {
             // n = ln(M / (M - P*r)) / ln(1 + r)
             double n = Math.log(payment / (payment - principal * rate)) / Math.log(1 + rate);
 
-            // Conversion en années
-            double years = n / weeksInYear;
+            double years = n / paimentInYear;
 
             System.out.printf("You have approximately %.0f payments left (%.1f years).%n", n, years);
         }
