@@ -5,51 +5,42 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class MortgageCalculator {
-    public static void calculate() {
-        final byte weeksInYear = 26;
+
+    public static double readNumber(String prompt, int min, int max) {
+        double number;
+        Scanner input = new Scanner(System.in);
+
+        System.out.print(prompt);
+        while (true) {
+            number = input.nextDouble();
+            if(number >= min &&  number <= max) {
+                break;
+            }
+            System.out.print("Enter a number between " + min + " and " + max + ": ");
+        }
+        return number;
+    }
+
+    public static String calculatePayment(float mortgage, float rate, int term){
+        final byte numberOfPaymentYear = 26;
         final byte percent = 100;
 
-        Scanner input = new Scanner(System.in);
-        float mortgage;
-        float rate;
-        int howLong;
+        float weeklyRate = rate / percent / numberOfPaymentYear;
+        int termTotal = term * numberOfPaymentYear;
 
-        System.out.print("Enter Your Mortgage total: ");
-        while (true) {
-            mortgage = input.nextFloat();
-            if(mortgage >= 100_000 &&  mortgage <= 2_000_000) {
-                break;
-            }
-            System.out.print("Enter Your Mortgage total (Between 100,000$  and 2,000,000$) : ");
-        }
+        Double payment = mortgage * ((weeklyRate * Math.pow((1 + weeklyRate), termTotal)) /
+                (Math.pow((1 + weeklyRate), termTotal) - 1));
 
-        System.out.print("Enter Your Annual interest rate: ");
-        while (true) {
-            rate = input.nextFloat();
-            if(rate > 0 &&  rate <= 10) {
-                break;
-            }
-            System.out.print("Enter Your Annual interest rate (Between 0%  and 10%) : ");
-        }
-        rate = rate / percent / weeksInYear;
+        return NumberFormat.getCurrencyInstance(Locale.CANADA).format(payment);
+    }
 
-        System.out.print("How long do you plant to pay : ");
-        while (true) {
-            howLong = input.nextInt();
-            if(howLong >= 5 &&  howLong <= 30) {
-                break;
-            }
-            System.out.print("How long do you plant to pay (Between 5y  and 30y) : ");
-        }
+    public static void calculate() {
+        float mortgage =(float) readNumber("Enter Your Mortgage total: ", 100_000, 2_000_000);
+        float rate = (float) readNumber("Enter Your Annual interest rate: ", 0, 10);
+        int term = (int) readNumber("How long do you plant to pay : ", 5, 30);
 
-        howLong = howLong * weeksInYear;
 
-        Double payment = mortgage * ((rate * Math.pow((1 + rate), howLong)) /
-                (Math.pow((1 + rate), howLong) - 1));
-
-        String paymentFormater = NumberFormat.getCurrencyInstance(Locale.CANADA).format(payment);
-
-        System.out.println("Your payment is " + paymentFormater + " every two weeks.");
+        System.out.println("Your payment is " + calculatePayment(mortgage, rate, term) + " every two weeks.");
     }
 
     public static void calculateRest(final double principal, float annualRate) {
