@@ -9,17 +9,15 @@ public class Calculator {
     private float mortgage;
     private float rate;
     private int term;
-    private float biWeeklyRate;
 
     public Calculator(float mortgage, float rate, int term) {
         this.mortgage = mortgage;
         this.rate = rate;
         this.term = term;
-        this.biWeeklyRate = rate / percent / numberOfPaymentYear;
     }
 
     public float getBiweeklyRate() {
-        return biWeeklyRate;
+        return rate / percent / numberOfPaymentYear;
     }
 
     public float getMortgage() {
@@ -32,6 +30,10 @@ public class Calculator {
 
     public int getTerm() {
         return term;
+    }
+
+    public int getTotalNumberPayment(){
+        return term * numberOfPaymentYear;
     }
 
     public String calculatePayment() {
@@ -48,16 +50,18 @@ public class Calculator {
     public void calculateRest() {
 
         while (true) {
-            double payment = Console.readNumber("Enter your biweekly payment amount: ");
+            double payment = Console.readNumber("Enter your biweekly payment amount (-1 to quit): ");
 
-            if (payment <= mortgage * biWeeklyRate) {
+            if(payment == -1) break;
+            if (payment <= mortgage * getBiweeklyRate()) {
                 System.out.println("Error: payment too small to cover interest.");
                 continue;
             }
 
+
             // Formule pour trouver le nombre de paiements restants :
             // n = ln(M / (M - P*r)) / ln(1 + r)
-            double n = Math.log(payment / (payment - mortgage * biWeeklyRate)) / Math.log(1 + biWeeklyRate);
+            double n = Math.log(payment / (payment - mortgage * getBiweeklyRate())) / Math.log(1 + getBiweeklyRate());
 
             double years = n / numberOfPaymentYear;
 

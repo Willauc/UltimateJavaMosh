@@ -4,7 +4,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Report {
-    private final byte numberOfPaymentYear = 26;
     private Calculator calculator;
 
 
@@ -21,13 +20,13 @@ public class Report {
 
     public void getPaymentSchedule() {
 
-        int numberOfPayment = calculator.getTerm() * numberOfPaymentYear;
+        int numberOfPayment = calculator.getTotalNumberPayment();
 
         System.out.println();
         System.out.println("PAYMENT SCHEDULE");
         System.out.println("_____________________________");
 
-        for (int i = 1; i <= (calculator.getTerm() * numberOfPaymentYear); i++) {
+        for (int i = 1; i <= (numberOfPayment); i++) {
             float balance = (float) (calculator.getMortgage() *
                     (Math.pow((1 + calculator.getBiweeklyRate()), (numberOfPayment)) - Math.pow((1 + calculator.getBiweeklyRate()), i)) /
                     (Math.pow((1 + calculator.getBiweeklyRate()), (numberOfPayment)) - 1));

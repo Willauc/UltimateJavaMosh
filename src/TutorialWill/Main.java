@@ -13,7 +13,7 @@ public class Main {
         var report = new Report(calculator);
 
         report.getPayment();
-        //report.getPaymentSchedule();
+        report.getPaymentSchedule();
         calculator.calculateRest();
     }
 }
