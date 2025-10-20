@@ -24,14 +24,6 @@ public class Calculator {
         return mortgage;
     }
 
-    public float getRate() {
-        return rate;
-    }
-
-    public int getTerm() {
-        return term;
-    }
-
     public int getTotalNumberPayment(){
         return term * numberOfPaymentYear;
     }
@@ -47,17 +39,7 @@ public class Calculator {
     }
 
 
-    public void calculateRest() {
-
-        while (true) {
-            double payment = Console.readNumber("Enter your biweekly payment amount (-1 to quit): ");
-
-            if(payment == -1) break;
-            if (payment <= mortgage * getBiweeklyRate()) {
-                System.out.println("Error: payment too small to cover interest.");
-                continue;
-            }
-
+    public void calculateRest(double payment) {
 
             // Formule pour trouver le nombre de paiements restants :
             // n = ln(M / (M - P*r)) / ln(1 + r)
@@ -67,6 +49,5 @@ public class Calculator {
 
             System.out.printf("You have approximately %.0f payments left (%.1f years).%n", n, years);
         }
-    }
 
 }
