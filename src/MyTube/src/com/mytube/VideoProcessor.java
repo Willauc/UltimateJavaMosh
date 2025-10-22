@@ -1,15 +1,22 @@
-package com.mytube;
+package MyTube.src.com.mytube;
 
 public class VideoProcessor {
+    private final iEncoder encoder;
+    private final iDatabase database;
+    private final iCommunication communicator;
+
+    public VideoProcessor(iEncoder encoder, iDatabase database, iCommunication communicator) {
+        this.encoder = encoder;
+        this.database = database;
+        this.communicator = communicator;
+    }
+
     public void process(Video video) {
-        var encoder = new VideoEncoder();
         encoder.encode(video);
 
-        var database = new VideoDatabase();
         database.store(video);
 
-        var emailService = new EmailService();
-        emailService.sendEmail(video.getUser());
+        communicator.sendNotification(video.getUser());
     }
 }
 

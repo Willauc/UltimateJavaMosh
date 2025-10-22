@@ -1,4 +1,4 @@
-package com.mytube;
+package MyTube.src.com.mytube;
 
 public class User {
     private String email;

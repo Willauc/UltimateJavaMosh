@@ -1,4 +1,4 @@
-package com.mytube;
+package MyTube.src.com.mytube;
 
 public class Video {
     private String fileName;

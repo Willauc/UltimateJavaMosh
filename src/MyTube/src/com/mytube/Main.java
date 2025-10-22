@@ -1,4 +1,4 @@
-package com.mytube;
+package MyTube.src.com.mytube;
 
 public class Main {
 
@@ -8,7 +8,7 @@ public class Main {
         video.setTitle("Jennifer's birthday");
         video.setUser(new User("john@domain.com"));
 
-        var processor = new VideoProcessor();
+        var processor = new VideoProcessor(new VideoEncoder(), new VideoDatabase(), new EmailService());
         processor.process(video);
     }
 }
