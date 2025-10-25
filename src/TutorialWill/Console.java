@@ -10,9 +10,14 @@ public class Console {
 
         System.out.print(prompt);
         while (true) {
-            number = input.nextDouble();
-            if (number >= min && number <= max) {
-                break;
+            try {
+                number = input.nextDouble();
+                if (number >= min && number <= max) {
+                    break;
+                }
+            } catch (RuntimeException e) {
+                System.out.println("invalid input");
+                input.nextLine();
             }
             System.out.print("Enter a number between " + min + " and " + max + ": ");
         }
@@ -20,7 +25,14 @@ public class Console {
     }
 
     public static double readNumber(String prompt) {
-        System.out.println(prompt);
-        return input.nextDouble();
+        while (true) {
+            try {
+                System.out.println(prompt);
+                return input.nextDouble();
+            } catch (RuntimeException e) {
+                System.out.println("invalid input");
+                input.nextLine();
+            }
+        }
     }
 }
