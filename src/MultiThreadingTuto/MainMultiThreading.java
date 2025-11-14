@@ -1,6 +1,7 @@
 package MultiThreadingTuto;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class MainMultiThreading {
     public static void main(String[] args)  {
@@ -11,8 +12,9 @@ public class MainMultiThreading {
 
         var service = new FlightService();
 
-        service.getQuote("site1")
-                .thenAccept(System.out::println);
+        service.getQuotes()
+                .map(future -> future.thenAccept(System.out::println))
+                .collect(Collectors.toList());
 
         try {
             Thread.sleep(10_000);

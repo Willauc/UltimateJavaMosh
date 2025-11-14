@@ -1,7 +1,9 @@
 package MultiThreadingTuto;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
 
 
 public class FlightService {
@@ -24,5 +26,11 @@ public class FlightService {
 
             return new Quote(site, quote);
         });
+    }
+
+    public Stream<CompletableFuture<Quote>> getQuotes() {
+        var sites = List.of("site1", "site2", "site3");
+
+        return sites.stream().map(this::getQuote);
     }
 }
