@@ -10,6 +10,7 @@ public class Calculator {
     private float rate;
     private int term;
 
+
     public Calculator(float mortgage, float rate, int term) {
         this.mortgage = mortgage;
         this.rate = rate;
@@ -24,7 +25,7 @@ public class Calculator {
         return mortgage;
     }
 
-    public int getTotalNumberPayment(){
+    public int getTotalNumberPayment() {
         return term * numberOfPaymentYear;
     }
 
@@ -41,13 +42,32 @@ public class Calculator {
 
     public void calculateRest(double payment) {
 
-            // Formule pour trouver le nombre de paiements restants :
-            // n = ln(M / (M - P*r)) / ln(1 + r)
-            double n = Math.log(payment / (payment - mortgage * getBiweeklyRate())) / Math.log(1 + getBiweeklyRate());
+        // Formule pour trouver le nombre de paiements restants :
+        // n = ln(M / (M - P*r)) / ln(1 + r)
+        double n = Math.log(payment / (payment - mortgage * getBiweeklyRate())) / Math.log(1 + getBiweeklyRate());
 
-            double years = n / numberOfPaymentYear;
+        double years = n / numberOfPaymentYear;
 
-            System.out.printf("You have approximately %.0f payments left (%.1f years).%n", n, years);
-        }
+        System.out.printf("You have approximately %.0f payments left (%.1f years).%n", n, years);
+    }
 
+    public int getTerm() {
+        return term;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setMortgage(float mortgage) {
+        this.mortgage = mortgage;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
+
+    public void setTerm(int term) {
+        this.term = term;
+    }
 }

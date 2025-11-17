@@ -7,7 +7,9 @@ public class Main {
     public static void main(String[] args) {
         var report = new Report();
         while (true) {
+            System.out.println("");
             System.out.println("___Mortgage calculator___");
+            System.out.println(report);
             System.out.println("");
             System.out.println("Plese select a option:");
             System.out.println("");
@@ -24,22 +26,21 @@ public class Main {
 
             if (choice == 1) {
                 report.getPayment();
-            }else if (choice == 2) {
+            } else if (choice == 2) {
                 report.getPaymentSchedule();
-            }else if (choice == 3) {
+            } else if (choice == 3) {
                 report.getTimeToPay();
-            }else if (choice == 4) {
-                continue;
-            }else if (choice == 5) {
-                continue;
-            }else if (choice == 6) {
-                continue;
-            }else if (choice == 7) {
+            } else if (choice == 4) {
+                report.setMortgage();
+            } else if (choice == 5) {
+                report.setRate();
+            } else if (choice == 6) {
+                report.setTerm();
+            } else if (choice == 7) {
                 break;
             }
 
         }
-
 
 
     }
