@@ -6,17 +6,15 @@ import java.util.Arrays;
 
 public class greatesCandy {
 
-        public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
-            int max = Arrays.stream(candies).max().getAsInt();
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        int max = Arrays.stream(candies).max().getAsInt();
 
-            List<Boolean> result = new ArrayList<>();
+        List<Boolean> result = new ArrayList<>();
 
-            for (int c : candies ) {
+        for (int c : candies) {
+            result.add(c + extraCandies >= max);
+        }
 
-                    result.add(c + extraCandies >= max);
-
-            }
-
-            return result;
+        return result;
     }
 }
